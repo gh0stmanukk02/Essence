@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Essência - Perfumaria de Luxo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Cores e Variáveis */
+        :root {
+            --black: #000000;
+            --dark-black: #111111;
+            --silver: #C0C0C0;
+            --light-silver: #E5E5E5;
+            --white: #FFFFFF;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset e Base Mobile */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--black);
+            color: var(--light-silver);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Tipografia Mobile */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Header Mobile */
+        .header {
+            background-color: var(--black);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--silver);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--silver);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            color: var(--silver);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background-color: var(--dark-black);
+            border-left: 1px solid var(--silver);
+            transition: var(--transition);
+            z-index: 101;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .close-menu {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: var(--silver);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .nav-menu a {
+            color: var(--silver);
+            text-decoration: none;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            color: var(--light-silver);
+            padding-left: 10px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icons a {
+            color: var(--silver);
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--silver);
+            color: var(--black);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Hero Mobile */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--silver);
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: var(--light-silver);
+        }
+
+        .btn {
+            background-color: var(--silver);
+            color: var(--black);
+            padding: 12px 30px;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .btn:hover {
+            background-color: var(--light-silver);
+            transform: translateY(-3px);
+        }
+
+        /* Produtos Mobile */
+        .products-section {
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--silver);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: var(--silver);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: var(--dark-black);
+            border: 1px solid var(--silver);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(192, 192, 192, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border-radius: 2px;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--silver);
+        }
+
+        .product-price {
+            font-size: 1rem;
+            color: var(--light-silver);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Footer Mobile */
+        .footer {
+            background-color: var(--dark-black);
+            padding: 40px 20px 20px;
+            border-top: 1px solid var(--silver);
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--silver);
+            letter-spacing: 2px;
+        }
+
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--silver);
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--silver);
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--light-silver);
+            margin-bottom: 10px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--silver);
+            padding-left: 5px;
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            background-color: var(--black);
+            border: 1px solid var(--silver);
+            color: var(--light-silver);
+            border-radius: 2px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: var(--silver);
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--light-silver);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(192, 192, 192, 0.3);
+            font-size: 0.8rem;
+            color: var(--silver);
+        }
+
+        /* Overlay para menu mobile */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Media Queries para Desktop */
+        @media (min-width: 768px) {
+            .mobile-menu-btn, .close-menu {
+                display: none;
+            }
+
+            .nav-menu {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                border: none;
+                flex-direction: row;
+                padding: 0;
+                gap: 25px;
+            }
+
+            .nav-menu a {
+                padding: 0;
+                border: none;
+                font-size: 0.9rem;
+            }
+
+            .nav-menu a:hover {
+                padding-left: 0;
+                transform: translateY(-2px);
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Mobile -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">ROYAL ESSÊNCIA</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-icons">
+                <a href="#"><i class="fas fa-search"></i></a>
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#" class="cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <nav class="nav-menu" id="navMenu">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+            <a href="#">Home</a>
+            <a href="#">Perfumes</a>
+            <a href="#">Sabonetes</a>
+            <a href="#">Presentes</a>
+            <a href="#">História</a>
+            <a href="#">Contato</a>
+        </nav>
+        <div class="overlay" id="overlay"></div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ELEGÂNCIA EM FRAGRÂNCIAS</h1>
+            <p>Descubra a sofisticação das essências reais em nossa coleção exclusiva</p>
+            <button class="btn" onclick="window.location.href='#products'">EXPLORAR COLECÃO</button>
+        </div>
+    </section>
+
+    <!-- Produtos -->
+    <section class="products-section" id="products">
+        <h2 class="section-title">NOSSOS DESTAQUES</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x400/111111/C0C0C0?text=Royal+Noir" alt="Perfume Royal Noir" class="product-image">
+                <h3 class="product-name">Perfume Royal Noir</h3>
+                <p class="product-price">R$ 299,00</p>
+                <button class="btn" onclick="addToCart('Perfume Royal Noir', 299)">ADICIONAR AO CARRINHO</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x400/111111/C0C0C0?text=Sabonete+Prata" alt="Sabonete Líquido Prata" class="product-image">
+                <h3 class="product-name">Sabonete Líquido Prata</h3>
+                <p class="product-price">R$ 89,00</p>
+                <button class="btn" onclick="addToCart('Sabonete Líquido Prata', 89)">ADICIONAR AO CARRINHO</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x400/111111/C0C0C0?text=Kit+Essência" alt="Kit Essência Real" class="product-image">
+                <h3 class="product-name">Kit Essência Real</h3>
+                <p class="product-price">R$ 459,00</p>
+                <button class="btn" onclick="addToCart('Kit Essência Real', 459)">ADICIONAR AO CARRINHO</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x400/111111/C0C0C0?text=Vela+Royal" alt="Vela Royal Night" class="product-image">
+                <h3 class="product-name">Vela Royal Night</h3>
+                <p class="product-price">R$ 159,00</p>
+                <button class="btn" onclick="addToCart('Vela Royal Night', 159)">ADICIONAR AO CARRINHO</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">ROYAL ESSÊNCIA</div>
+                <p>Perfumaria de luxo desde 2023.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Institucional</h3>
+                <a href="#">Sobre Nós</a>
+                <a href="#">Nossa História</a>
+                <a href="#">Trabalhe Conosco</a>
+            </div>
+            <div class="footer-links">
+                <h3>Ajuda</h3>
+                <a href="#">FAQ</a>
+                <a href="#">Trocas e Devoluções</a>
+                <a href="#">Entregas</a>
+            </div>
+            <div class="footer-links newsletter">
+                <h3>Newsletter</h3>
+                <input type="email" placeholder="Seu e-mail">
+                <button class="btn">ASSINAR</button>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2023 ROYAL ESSÊNCIA. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenu.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        overlay.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Carrinho de Compras
+        let cart = [];
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            updateCartCount();
+            
+            // Efeito visual
+            const btn = event.target;
+            btn.textContent = '✔ ADICIONADO';
+            btn.style.backgroundColor = '#4CAF50';
+            
+            setTimeout(() => {
+                btn.textContent = 'ADICIONAR AO CARRINHO';
+                btn.style.backgroundColor = '';
+            }, 2000);
+        }
+
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+            }
+        }
+
+        // Newsletter
+        document.querySelector('.newsletter .btn').addEventListener('click', function() {
+            const emailInput = document.querySelector('.newsletter input');
+            const email = emailInput.value;
+            
+            if (email && email.includes('@')) {
+                alert(`Obrigado por assinar nossa newsletter! Você receberá nossas novidades em ${email}`);
+                emailInput.value = '';
+            } else {
+                alert('Por favor, insira um e-mail válido.');
+                emailInput.focus();
+            }
+        });
+
+        // Efeito de scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+                
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
